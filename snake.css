@@ -1,0 +1,18 @@
+* {
+	color: #222222;
+	background-color: #FF4444;
+	font-family: monospace;
+	text-align: center;
+}
+
+h1 {
+	font-size: 4em;
+}
+
+a {
+	color: #FFFFE7;
+}
+
+a:hover {
+	color: #222222;
+}
