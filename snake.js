@@ -57,7 +57,7 @@ Apple.prototype.render = function() {
 
 function Snake(x, y) {
 	this.x_speed = 1;
-	this.y_speed = 0;
+	this.y_speed = 1;
 	this.tail = new Array();
 	this.addBlock(x,y);
 };
@@ -122,16 +122,16 @@ Snake.prototype.eat = function(apple) {
 Snake.prototype.update = function(apple) {
 	for(var key in keysDown) {
 		var value = Number(key);
-		if(value == 38 /*&& this.y_speed != 1*/) { // up arrow
+		if(value == 38 && this.y_speed != 1) { // up arrow
 			this.move(0,-1);
 			pause = false;
-		} else if (value == 40) { // down arrow
+		} else if (value == 40 && this.y_speed != -1) { // down arrow
 			this.move(0,1);
 			pause = false;
-		} else if (value == 37) { // left arrow
+		} else if (value == 37 && this.x_speed != 1) { // left arrow
 			this.move(-1,0);
 			pause = false;
-		} else if (value == 39) { // right arrow
+		} else if (value == 39 && this.x_speed != -1) { // right arrow
 			this.move(1,0);
 			pause = false;
 		} else if (value == 80) { // P -> pause
@@ -191,8 +191,13 @@ var render = function() {
 	snake.render();
 
 	if(pause) {
-		context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+		context.fillStyle = 'rgba(0,0,0, 0.5)';
 		context.fillRect(0, 0, width, height);
+
+		context.fillStyle = '#FFFFFF';
+		context.fillRect(width / 2 - 20 - 30, height / 2 - 50, 40, 100);
+		context.fillStyle = '#FFFFFF';
+		context.fillRect(width / 2 - 20 + 30, height / 2 - 50, 40, 100);
 	}
 };
 
