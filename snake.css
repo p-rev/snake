@@ -1,8 +1,17 @@
 * {
 	color: #FFFFE7;
-	background-color: #FF4444;
 	font-family: monospace;
 	text-align: center;
+}
+
+html {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background: -webkit-linear-gradient(#FF4444, #f75220); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#FF4444, #f75220); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#FF4444, #f75220); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#FF4444, #f75220); /* Standard syntax */
 }
 
 h1 {
