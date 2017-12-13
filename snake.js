@@ -95,7 +95,11 @@ Snake.prototype.checkCollision = function() {
 }
 
 Snake.prototype.eat = function(apple) {
-	return (this.tail[0].x == apple.x && this.tail[0].y == apple.y);
+	if (this.tail[0].x == apple.x && this.tail[0].y == apple.y) {
+		apple.place();
+		this.addBlock(0,0);
+		incrementScore();
+	}
 };
 
 Snake.prototype.update = function(apple) {
@@ -120,10 +124,7 @@ Snake.prototype.update = function(apple) {
 	}
 
 	if(!pause) {
-		if(this.eat(apple)) {
-			apple.place();
-			this.addBlock(0,0);
-		}
+		this.eat(apple);
 
 		this.updateTail();
 
@@ -152,6 +153,8 @@ var renderBackground = function() {
 
 var finJeux = false;
 var pause = true;
+var score = 0;
+var scoreText;
 
 var snake = new Snake(5,5);
 snake.addBlock(5,4);
@@ -159,6 +162,11 @@ snake.addBlock(5,3);
 
 var apple = new Apple();
 apple.place();
+
+var incrementScore = function() {
+	score++;
+	scoreText.innerHTML = "Score : " + score;
+}
 
 var render = function() {
 	renderBackground();
@@ -194,5 +202,6 @@ var step = function() {
 
 window.onload = function() {
 	document.getElementById("snake").appendChild(canvas);
+	scoreText = document.getElementById("score");
 	animate(step);
 };

@@ -1,5 +1,5 @@
 * {
-	color: #222222;
+	color: #FFFFE7;
 	background-color: #FF4444;
 	font-family: monospace;
 	text-align: center;
@@ -7,12 +7,13 @@
 
 h1 {
 	font-size: 4em;
-}
-
-a {
-	color: #FFFFE7;
+	color: #222222;
 }
 
 a:hover {
 	color: #222222;
+}
+
+#score {
+	font-weight: bold;
 }
