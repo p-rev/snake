@@ -32,10 +32,6 @@ function Block(x, y) {
 Block.prototype.render = function() {
 	context.fillStyle = "#55FF55";
 	context.fillRect(this.x * square, this.y * square, square, square);
-	/*
-	context.fillStyle = "#009900";
-	context.fillRect(this.x * square + 1, this.y * square + 1 , square - 2, square - 2);
-	*/
 	context.fillStyle = "rgba(0," + this.color + ",0, 1)";
 	context.fillRect(this.x * square + 1, this.y * square + 1 , square - 2, square - 2);
 };
@@ -78,10 +74,28 @@ Snake.prototype.addBlock = function(x,y) {
 	this.calculateColor();
 };
 
+Snake.prototype.renderHead = function() {
+	x = this.tail[0].x;
+	y = this.tail[0].y;
+
+	if(this.y_speed != 0) {
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(x * square + square / 2 - 2 - 3, y * square + square / 2 - 2 + this.y_speed * 4, 4, 4);
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(x * square + square / 2 - 2 + 3, y * square + square / 2 - 2 + this.y_speed * 4, 4, 4);
+	} else {
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(x * square + square / 2 - 2 + this.x_speed * 4, y * square + square / 2 - 2 - 3, 4, 4);
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(x * square + square / 2 - 2 + this.x_speed * 4, y * square + square / 2 - 2 + 3, 4, 4);
+	}
+}
+
 Snake.prototype.render = function() {
 	for (var i = 0; i < this.tail.length; i++) {
 		this.tail[i].render();
 	}
+	this.renderHead();
 };
 
 Snake.prototype.move = function(x, y) {
