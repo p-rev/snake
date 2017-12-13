@@ -26,12 +26,17 @@ window.addEventListener("keydown", function(event) {
 function Block(x, y) {
 	this.x = x;
 	this.y = y;
+	this.color;
 }
 
 Block.prototype.render = function() {
 	context.fillStyle = "#55FF55";
 	context.fillRect(this.x * square, this.y * square, square, square);
+	/*
 	context.fillStyle = "#009900";
+	context.fillRect(this.x * square + 1, this.y * square + 1 , square - 2, square - 2);
+	*/
+	context.fillStyle = "rgba(0," + this.color + ",0, 1)";
 	context.fillRect(this.x * square + 1, this.y * square + 1 , square - 2, square - 2);
 };
 
@@ -57,8 +62,20 @@ function Snake(x, y) {
 	this.addBlock(x,y);
 };
 
+Snake.prototype.calculateColor = function() {
+	max = 200;
+	min = 100;
+	gradient = (max - min) / this.tail.length;
+	currentColor = min;
+	for (var i = 0; i < this.tail.length ; i++) {
+		this.tail[i].color = currentColor;
+		currentColor += gradient;
+	}
+}
+
 Snake.prototype.addBlock = function(x,y) {
 	this.tail.push(new Block(x,y));
+	this.calculateColor();
 };
 
 Snake.prototype.render = function() {
@@ -105,7 +122,7 @@ Snake.prototype.eat = function(apple) {
 Snake.prototype.update = function(apple) {
 	for(var key in keysDown) {
 		var value = Number(key);
-		if(value == 38) { // up arrow
+		if(value == 38 /*&& this.y_speed != 1*/) { // up arrow
 			this.move(0,-1);
 			pause = false;
 		} else if (value == 40) { // down arrow
