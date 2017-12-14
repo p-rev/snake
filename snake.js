@@ -17,10 +17,9 @@ canvas.width = width;
 canvas.height = height;
 var context = canvas.getContext('2d');
 
-var keysDown = {};
 
 window.addEventListener("keydown", function(event) {
-	keysDown[event.keyCode] = true;
+	keyDown = event.keyCode;
 });
 
 function Block(x, y) {
@@ -134,8 +133,8 @@ Snake.prototype.eat = function(apple) {
 };
 
 Snake.prototype.update = function(apple) {
-	for(var key in keysDown) {
-		var value = Number(key);
+	if(keyDown) {
+		var value = Number(keyDown);
 		if(value == 38 && this.y_speed != 1) { // up arrow
 			this.move(0,-1);
 			pause = false;
@@ -151,7 +150,7 @@ Snake.prototype.update = function(apple) {
 		} else if (value == 80) { // P -> pause
 			pause = !pause;
 		}
-		delete keysDown[key];
+		keyDown = false;
 	}
 
 	if(!pause) {
@@ -186,6 +185,7 @@ var finJeux = false;
 var pause = true;
 var score = 0;
 var scoreText;
+var keyDown = false;
 
 var snake = new Snake(5,5);
 snake.addBlock(5,4);
