@@ -51,7 +51,7 @@ Apple.prototype.render = function() {
 };
 
 function Snake(x, y) {
-	this.x_speed = 1;
+	this.x_speed = 0;
 	this.y_speed = 1;
 	this.tail = new Array();
 	this.addBlock(x,y);
@@ -63,7 +63,7 @@ Snake.prototype.calculateColor = function() {
 	gradient = (max - min) / this.tail.length;
 	currentColor = min;
 	for (var i = 0; i < this.tail.length ; i++) {
-		this.tail[i].color = currentColor;
+		this.tail[i].color = Math.round(currentColor);
 		currentColor += gradient;
 	}
 }
